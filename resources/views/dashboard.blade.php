@@ -32,7 +32,6 @@
 
         <!-- Sidebar -->
         <div class="col-md-2 bg-white border-end vh-100 p-0">
-
             <div class="list-group list-group-flush">
 
                 <a href="/dashboard" class="list-group-item list-group-item-action">
@@ -55,8 +54,8 @@
                     🧾 Libros SUNAT
                 </a>
 
-                <a href="/constancias" class="list-group-item list-group-item-action">
-                    📄 Constancias SUNAT
+                <a href="{{ route('consultas.index') }}" class="list-group-item list-group-item-action">
+                    🔍 Consultas SUNAT
                 </a>
 
                 <a href="/reportes" class="list-group-item list-group-item-action">
@@ -64,7 +63,6 @@
                 </a>
 
             </div>
-
         </div>
 
         <!-- Main content -->

@@ -24,4 +24,10 @@ class LibroSunat extends Model
     {
         return $this->belongsTo(Cliente::class);
     }
+    
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }
