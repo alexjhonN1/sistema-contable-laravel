@@ -1,28 +1,51 @@
 @extends('layouts.app')
 
+@section('title', 'Verificar Correo')
+
 @section('content')
+
+<style>
+    .auth-card {
+        background: white;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+    }
+    .btn-orange {
+        background: #ff7c00;
+        color: white;
+        border-radius: 8px;
+        font-weight: 600;
+        padding: 10px 20px;
+        border: none;
+    }
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+        <div class="col-md-6">
 
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
-                        </div>
-                    @endif
+            <div class="auth-card">
 
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
-                </div>
+                <h3 class="fw-bold text-primary">Verifica tu Correo</h3>
+
+                @if (session('resent'))
+                    <div class="alert alert-success">
+                        Se ha enviado un nuevo enlace de verificación.
+                    </div>
+                @endif
+
+                <p class="text-muted">Antes de continuar, revisa tu bandeja de entrada.</p>
+
+                <form method="POST" action="{{ route('verification.resend') }}">
+                    @csrf
+                    <button class="btn-orange">Reenviar Email</button>
+                </form>
+
             </div>
+
         </div>
     </div>
 </div>
+
 @endsection

@@ -1,47 +1,56 @@
 @extends('layouts.app')
 
+@section('title', 'Recuperar Contraseña')
+
 @section('content')
+
+<style>
+    .auth-card {
+        background: white;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+    }
+    .btn-orange {
+        background: #ff7c00;
+        color: white;
+        width: 100%;
+        border-radius: 8px;
+        padding: 10px;
+        font-weight: 600;
+        border: none;
+    }
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+        <div class="col-md-6">
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+            <div class="auth-card">
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
+                <h3 class="fw-bold text-primary">Restablecer Contraseña</h3>
+                <p class="text-muted">Te enviaremos un enlace a tu correo.</p>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                @if (session('status'))
+                    <div class="alert alert-success">{{ session('status') }}</div>
+                @endif
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <form method="POST" action="{{ route('password.email') }}">
+                    @csrf
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label class="fw-bold">Correo Electrónico</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    <button class="btn-orange">Enviar Enlace</button>
+
+                </form>
+
             </div>
+
         </div>
     </div>
 </div>
+
 @endsection

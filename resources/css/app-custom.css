@@ -1,0 +1,75 @@
+.title {
+    color: #004aad;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.btn-add {
+    background: #ffcc00;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.styled-table thead {
+    background: #004aad;
+    color: white;
+}
+
+.styled-table th,
+.styled-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background: #f0f6ff;
+}
+
+.btn-edit {
+    background: #ffcc00;
+    padding: 6px 12px;
+    color: #333;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-delete {
+    background: #ff4d4d;
+    padding: 6px 12px;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+}
+
+.btn-save {
+    margin-top: 20px;
+    background: #004aad;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.form-input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}

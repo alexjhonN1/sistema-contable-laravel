@@ -1,119 +1,130 @@
-<!doctype html>
-<html lang="es">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('title', 'Dashboard')
 
-    <title>Dashboard</title>
+@section('content')
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-</head>
+<!-- ESTILOS MODERNOS -->
+<style>
+    /* TÍTULO PRINCIPAL */
+    .title-dashboard {
+        color: #003b7a;
+        font-weight: 800;
+        font-size: 30px;
+        letter-spacing: -0.5px;
+        margin-bottom: 15px;
+    }
 
-<body class="bg-light">
+    /* SUBTÍTULO / ALERTA */
+    .subtitle-box {
+        background: #fff7e6;
+        border-left: 6px solid #ff7c00;
+        padding: 14px 16px;
+        border-radius: 8px;
+        color: #6a5e00;
+        font-size: 15px;
+        margin-bottom: 30px;
+        box-shadow: 0px 3px 10px rgba(0,0,0,0.06);
+    }
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Sistema Híbrido</a>
+    /* TARJETAS MODERNAS */
+    .module-card {
+        background: white;
+        border-radius: 14px;
+        padding: 26px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.07);
+        transition: all .25s ease;
+        text-decoration: none;
+        display: block;
+    }
 
-        <div class="d-flex">
-            <span class="text-white me-3">{{ Auth::user()->name }}</span>
+    .module-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 10px 20px rgba(0,0,0,0.10);
+    }
 
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button class="btn btn-danger btn-sm">Cerrar sesión</button>
-            </form>
-        </div>
-    </div>
-</nav>
+    /* ICONOS */
+    .module-icon {
+        font-size: 40px;
+        color: #003b7a;
+        margin-bottom: 12px;
+    }
 
-<div class="container-fluid">
-    <div class="row">
+    /* TÍTULO DE LA TARJETA */
+    .module-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: #003b7a;
+    }
 
-        <!-- Sidebar -->
-        <div class="col-md-2 bg-white border-end vh-100 p-0">
-            <div class="list-group list-group-flush">
+    /* DESCRIPCIÓN */
+    .module-desc {
+        font-size: 14px;
+        color: #505050;
+        margin-bottom: 18px;
+    }
 
-                <a href="/dashboard" class="list-group-item list-group-item-action">
-                    📊 Dashboard
-                </a>
+    /* BOTÓN */
+    .btn-orange {
+        background-color: #ff7c00;
+        color: white;
+        border-radius: 8px;
+        border: none;
+        padding: 10px;
+        font-weight: 600;
+        width: 100%;
+        transition: .2s;
+    }
 
-                <a href="/usuarios" class="list-group-item list-group-item-action">
-                    👥 Gestión de Usuarios
-                </a>
+    .btn-orange:hover {
+        background-color: #e56f00;
+        color: white;
+    }
+</style>
 
-                <a href="/roles" class="list-group-item list-group-item-action">
-                    🔐 Gestión de Roles
-                </a>
+<!-- TÍTULO -->
+<h2 class="title-dashboard">
+    Bienvenido, {{ Auth::user()->role->nombre ?? 'Usuario' }}
+</h2>
 
-                <a href="/clientes" class="list-group-item list-group-item-action">
-                    📁 Clientes / Proveedores
-                </a>
-
-                <a href="/libros" class="list-group-item list-group-item-action">
-                    🧾 Libros SUNAT
-                </a>
-
-                <a href="{{ route('consultas.index') }}" class="list-group-item list-group-item-action">
-                    🔍 Consultas SUNAT
-                </a>
-
-                <a href="/reportes" class="list-group-item list-group-item-action">
-                    🧮 Reportes del Día
-                </a>
-
-            </div>
-        </div>
-
-        <!-- Main content -->
-        <div class="col-md-10 p-4">
-
-            <h2 class="mb-4">
-                Bienvenido, {{ Auth::user()->role->nombre ?? 'Usuario' }}
-            </h2>
-
-            <div class="alert alert-info shadow-sm">
-                Este es tu panel principal. Desde aquí podrás gestionar todo el Sistema Híbrido Contable.
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-4 mb-3">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Usuarios</h5>
-                            <p class="card-text">Administrar cuentas y permisos.</p>
-                            <a href="/usuarios" class="btn btn-primary w-100">Entrar</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Roles</h5>
-                            <p class="card-text">Gestionar roles y autorizaciones.</p>
-                            <a href="/roles" class="btn btn-primary w-100">Entrar</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Clientes</h5>
-                            <p class="card-text">Registrar y gestionar clientes y proveedores.</p>
-                            <a href="/clientes" class="btn btn-primary w-100">Entrar</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+<!-- SUBTÍTULO -->
+<div class="subtitle-box">
+    Este es tu panel principal. Desde aquí podrás gestionar todo el Sistema Híbrido Contable.
 </div>
 
-</body>
-</html>
+<!-- TARJETAS MINIMALISTAS -->
+<div class="row g-4">
+
+    <!-- Usuarios -->
+    <div class="col-md-4">
+        <a href="/usuarios" class="module-card">
+            <div class="module-icon">👥</div>
+            <div class="module-title">Usuarios</div>
+            <div class="module-desc">Administrar cuentas y permisos.</div>
+            <button class="btn-orange">Entrar</button>
+        </a>
+    </div>
+
+    <!-- Roles -->
+    <div class="col-md-4">
+        <a href="/roles" class="module-card">
+            <div class="module-icon">🔐</div>
+            <div class="module-title">Roles</div>
+            <div class="module-desc">Gestionar roles y autorizaciones.</div>
+            <button class="btn-orange">Entrar</button>
+        </a>
+    </div>
+
+    <!-- Clientes -->
+    <div class="col-md-4">
+        <a href="/clientes" class="module-card">
+            <div class="module-icon">🏢</div>
+            <div class="module-title">Clientes</div>
+            <div class="module-desc">Registrar y gestionar clientes y proveedores.</div>
+            <button class="btn-orange">Entrar</button>
+        </a>
+    </div>
+
+</div>
+
+@endsection
