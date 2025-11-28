@@ -8,13 +8,29 @@ use Illuminate\Http\Request;
 
 class EmpleadoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $empleados = Empleado::with('cliente')
-            ->orderBy('apellido_paterno')
-            ->paginate(15);
+        // Capturar filtros
+        $buscar = $request->input('buscar');   // nombre o apellidos
+        $dni = $request->input('dni');         // dni
+        $tipo = $request->input('tipo');       // tipo de empleado
 
-        return view('empleados.index', compact('empleados'));
+        // Query con filtros dinámicos
+        $empleados = Empleado::with('cliente')
+            ->when($buscar, function ($query) use ($buscar) {
+                $query->whereRaw("CONCAT(apellido_paterno, ' ', apellido_materno, ' ', nombres) LIKE ?", ["%{$buscar}%"]);
+            })
+            ->when($dni, function ($query) use ($dni) {
+                $query->where('numero_documento', 'LIKE', "%{$dni}%");
+            })
+            ->when($tipo, function ($query) use ($tipo) {
+                $query->where('tipo', $tipo);
+            })
+            ->orderBy('apellido_paterno')
+            ->paginate(10)
+            ->withQueryString(); // Mantiene los filtros al paginar
+
+        return view('empleados.index', compact('empleados', 'buscar', 'dni', 'tipo'));
     }
 
     public function create()
@@ -27,6 +43,7 @@ class EmpleadoController extends Controller
     {
         $request->validate([
             'cliente_id' => 'required',
+            'tipo' => 'required',
             'numero_documento' => 'required',
             'apellido_paterno' => 'required',
             'apellido_materno' => 'required',
@@ -51,6 +68,7 @@ class EmpleadoController extends Controller
     {
         $request->validate([
             'cliente_id' => 'required',
+            'tipo' => 'required',
             'numero_documento' => 'required',
             'apellido_paterno' => 'required',
             'apellido_materno' => 'required',

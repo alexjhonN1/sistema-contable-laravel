@@ -68,21 +68,61 @@
         font-weight: 600;
         border-radius: 6px;
     }
-
 </style>
-
 
 <div class="container">
 
     <!-- ENCABEZADO -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="title-page">
-            Empleados
-        </h2>
+        <h2 class="title-page">Empleados</h2>
 
         <a href="{{ route('empleados.create') }}" class="btn btn-orange">
             + Nuevo Empleado
         </a>
+    </div>
+
+
+    <!-- 🔍 FILTROS -->
+    <div class="card card-custom mb-4">
+        <div class="card-body">
+
+            <form action="{{ route('empleados.index') }}" method="GET" class="row g-3">
+
+                <!-- Buscar Nombre -->
+                <div class="col-md-4">
+                    <label class="fw-bold">Buscar por nombre:</label>
+                    <input type="text" name="buscar" class="form-control"
+                           placeholder="Apellido o nombre"
+                           value="{{ request('buscar') }}">
+                </div>
+
+                <!-- Buscar DNI -->
+                <div class="col-md-3">
+                    <label class="fw-bold">Buscar por DNI:</label>
+                    <input type="text" name="dni" class="form-control"
+                           placeholder="Documento"
+                           value="{{ request('dni') }}">
+                </div>
+
+                <!-- Tipo -->
+                <div class="col-md-3">
+                    <label class="fw-bold">Tipo de empleado:</label>
+                    <select name="tipo" class="form-select">
+                        <option value="">Todos</option>
+                        <option value="trabajador"   {{ request('tipo')=='trabajador'?'selected':'' }}>Trabajador</option>
+                        <option value="pensionado"   {{ request('tipo')=='pensionado'?'selected':'' }}>Pensionista</option>
+                        <option value="independiente"{{ request('tipo')=='independiente'?'selected':'' }}>Independiente</option>
+                    </select>
+                </div>
+
+                <!-- Botón -->
+                <div class="col-md-2 d-flex align-items-end">
+                    <button class="btn btn-primary w-100 fw-bold">Buscar</button>
+                </div>
+
+            </form>
+
+        </div>
     </div>
 
 
@@ -153,7 +193,6 @@
 
                             <!-- OPCIONES -->
                             <td class="text-center">
-
                                 <a href="{{ route('empleados.edit', $e->id) }}"
                                    class="btn btn-primary btn-sm-custom">
                                     ✏ Editar
@@ -169,7 +208,6 @@
                                         🗑 Eliminar
                                     </button>
                                 </form>
-
                             </td>
 
                         </tr>
