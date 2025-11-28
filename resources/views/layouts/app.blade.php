@@ -147,6 +147,11 @@
                         📄 Constancias SUNAT
                     </a>
 
+                    <a href="{{ route('consultas.index') }}"
+                    class="list-group-item {{ request()->is('consultas*') ? 'active' : '' }}">
+                        🧐 Consultas SUNAT
+                    </a>
+
                     <a href="/reportes"
                        class="list-group-item {{ request()->is('reportes*') ? 'active' : '' }}">
                         📈 Reportes del Día

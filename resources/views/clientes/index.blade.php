@@ -129,21 +129,29 @@
 
             <div class="col-md-4">
                 <input type="text" name="search" class="form-control"
-                       placeholder="Nombre o Razón Social" value="{{ $busqueda }}">
+                    placeholder="Nombre o Razón Social" value="{{ $busqueda }}">
             </div>
 
             <div class="col-md-3">
                 <input type="text" name="search_ruc" class="form-control"
-                       placeholder="RUC">
+                    placeholder="RUC">
             </div>
 
             <div class="col-md-3">
                 <input type="text" name="search_dni" class="form-control"
-                       placeholder="DNI">
+                    placeholder="DNI">
             </div>
 
-            <div class="col-md-2">
-                <a href="{{ route('clientes.create') }}" class="btn btn-orange w-100">
+            <!-- BOTÓN BUSCAR -->
+            <div class="col-md-1 d-grid">
+                <button class="btn btn-primary fw-bold" style="background:#003b7a; border:none;">
+                    🔍
+                </button>
+            </div>
+
+            <!-- BOTÓN REGISTRAR -->
+            <div class="col-md-2 d-grid">
+                <a href="{{ route('clientes.create') }}" class="btn btn-orange">
                     + Registrar
                 </a>
             </div>
@@ -227,6 +235,11 @@
             </tbody>
         </table>
     </div>
+    <!-- PAGINACIÓN -->
+    <div class="mt-3 d-flex justify-content-center">
+        {{ $clientes->links() }}
+    </div>
+
 
 </div>
 

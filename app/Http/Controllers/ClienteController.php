@@ -9,15 +9,19 @@ class ClienteController extends Controller
 {
     public function index(Request $request)
     {
-        $ultimo = $request->query('ultimo'); // Último dígito del RUC
-        $busqueda = $request->query('search');
+        $ultimo = $request->query('ultimo');     // último dígito del RUC
+        $busqueda = $request->query('search');   // búsqueda general
+        $ruc = $request->query('search_ruc');    // búsqueda exacta RUC
+        $dni = $request->query('search_dni');    // búsqueda DNI
 
         $clientes = Cliente::query();
 
+        // FILTRO POR ÚLTIMO DÍGITO DEL RUC
         if ($ultimo !== null) {
-            $clientes->where('ruc', 'like', '%'.$ultimo);
+            $clientes->where('ruc', 'like', "%$ultimo");
         }
 
+        // BUSCADOR GENERAL (nombre o ruc)
         if ($busqueda) {
             $clientes->where(function ($q) use ($busqueda) {
                 $q->where('nombre', 'like', "%$busqueda%")
@@ -25,7 +29,18 @@ class ClienteController extends Controller
             });
         }
 
-        $clientes = $clientes->orderBy('id','ASC')->get();
+        // BÚSQUEDA ESPECÍFICA POR RUC
+        if ($ruc) {
+            $clientes->where('ruc', 'like', "%$ruc%");
+        }
+
+        // BÚSQUEDA ESPECÍFICA POR DNI
+        if ($dni) {
+            $clientes->where('dni', 'like', "%$dni%");
+        }
+
+        // PAGINACIÓN (10 clientes por página)
+        $clientes = $clientes->orderBy('id', 'ASC')->paginate(10);
 
         return view('clientes.index', compact('clientes','ultimo','busqueda'));
     }
@@ -49,7 +64,8 @@ class ClienteController extends Controller
 
         Cliente::create($request->all());
 
-        return redirect()->route('clientes.index')->with('success','Cliente registrado correctamente.');
+        return redirect()->route('clientes.index')
+                         ->with('success','Cliente registrado correctamente.');
     }
 
     public function edit(Cliente $cliente)
@@ -69,12 +85,14 @@ class ClienteController extends Controller
 
         $cliente->update($request->all());
 
-        return redirect()->route('clientes.index')->with('success','Cliente actualizado correctamente.');
+        return redirect()->route('clientes.index')
+                         ->with('success','Cliente actualizado correctamente.');
     }
 
     public function destroy(Cliente $cliente)
     {
         $cliente->delete();
-        return redirect()->route('clientes.index')->with('success','Cliente eliminado.');
+        return redirect()->route('clientes.index')
+                         ->with('success','Cliente eliminado.');
     }
 }

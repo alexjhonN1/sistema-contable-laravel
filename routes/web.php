@@ -104,3 +104,6 @@ Route::middleware(['auth', 'rol:superadmin,admin'])->group(function () {
         ->name('reportes.excel');
 });
 
+Route::get('/constancias', function () {
+    return view('constancias.proxima');
+})->name('constancias.proxima');

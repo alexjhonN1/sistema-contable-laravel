@@ -36,7 +36,6 @@
 
     .btn-orange:hover {
         background: #e56f00;
-        color: white;
     }
 
     .btn-gray {
@@ -56,6 +55,15 @@
         margin: 20px 0;
         border: none;
         border-top: 2px solid #eef0f4;
+    }
+
+    .btn-eye {
+        background: #d7d7d7;
+        border: none;
+        padding: 0 12px;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
     }
 </style>
 
@@ -94,22 +102,31 @@
 
             <div class="row g-3">
 
-                <!-- Clave SOL -->
+                <!-- CLAVE SOL (password + botón) -->
                 <div class="col-md-3">
                     <label class="form-label">Clave SOL</label>
-                    <input type="text" name="clave_sol" class="form-control">
+                    <div class="input-group">
+                        <input id="claveSol" type="password" name="clave_sol" 
+                               class="form-control"
+                               placeholder="Clave SOL del cliente">
+                        <button type="button" class="btn-eye" onclick="toggleClave('claveSol', this)">
+                            👁
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Password SOL -->
+                <!-- PASSWORD SOL (siempre oculta) -->
                 <div class="col-md-3">
                     <label class="form-label">Contraseña SOL</label>
-                    <input type="text" name="password_sol" class="form-control">
+                    <input type="password" name="password_sol" class="form-control"
+                           placeholder="Contraseña SOL">
                 </div>
 
                 <!-- Grupo -->
                 <div class="col-md-3">
                     <label class="form-label">Grupo</label>
-                    <input type="text" name="grupo" class="form-control" placeholder="Ej: Salud, Educación, etc.">
+                    <input type="text" name="grupo" class="form-control" 
+                           placeholder="Ej: Salud, Educación, etc.">
                 </div>
 
                 <!-- Estado -->
@@ -135,5 +152,19 @@
     </div>
 
 </div>
+
+<script>
+function toggleClave(id, btn) {
+    const input = document.getElementById(id);
+
+    if (input.type === "password") {
+        input.type = "text";
+        btn.innerHTML = "🚫"; // icono ocultar
+    } else {
+        input.type = "password";
+        btn.innerHTML = "👁"; // icono mostrar
+    }
+}
+</script>
 
 @endsection

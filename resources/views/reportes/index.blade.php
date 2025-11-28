@@ -9,10 +9,6 @@
     <a href="{{ route('reportes.pdf') }}" class="btn btn-danger me-2">
         📄 Descargar PDF
     </a>
-
-    <a href="{{ route('reportes.excel') }}" class="btn btn-success">
-        📊 Descargar Excel
-    </a>
 </div>
 
 <div class="row">
